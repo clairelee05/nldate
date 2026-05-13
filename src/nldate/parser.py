@@ -11,14 +11,43 @@ class ParseError(ValueError):
 
 
 _MONTHS = {month.lower(): idx for idx, month in enumerate(calendar.month_name) if month}
-_MONTHS |= {month.lower(): idx for idx, month in enumerate(calendar.month_abbr) if month}
+_MONTHS |= {
+    month.lower(): idx for idx, month in enumerate(calendar.month_abbr) if month
+}
 _WEEKDAYS = {day.lower(): idx for idx, day in enumerate(calendar.day_name)}
 _WEEKDAYS |= {day.lower()[:3]: idx for idx, day in enumerate(calendar.day_name)}
-_NUM_WORDS = {"zero": 0, "one": 1, "a": 1, "an": 1,"two": 2,"three": 3,"four": 4,"five": 5,
-              "six": 6,"seven": 7,"eight": 8,"nine": 9,"ten": 10,"eleven": 11,"twelve": 12,
-              "thirteen": 13,"fourteen": 14,"fifteen": 15,"sixteen": 16,"seventeen": 17,
-              "eighteen": 18,"nineteen": 19,"twenty": 20,"thirty": 30,"forty": 40,"fifty": 50,
-              "sixty": 60,"seventy": 70,"eighty": 80,"ninety": 90,}
+_NUM_WORDS = {
+    "zero": 0,
+    "one": 1,
+    "a": 1,
+    "an": 1,
+    "two": 2,
+    "three": 3,
+    "four": 4,
+    "five": 5,
+    "six": 6,
+    "seven": 7,
+    "eight": 8,
+    "nine": 9,
+    "ten": 10,
+    "eleven": 11,
+    "twelve": 12,
+    "thirteen": 13,
+    "fourteen": 14,
+    "fifteen": 15,
+    "sixteen": 16,
+    "seventeen": 17,
+    "eighteen": 18,
+    "nineteen": 19,
+    "twenty": 20,
+    "thirty": 30,
+    "forty": 40,
+    "fifty": 50,
+    "sixty": 60,
+    "seventy": 70,
+    "eighty": 80,
+    "ninety": 90,
+}
 _UNIT_RE = r"years?|months?|weeks?|days?"
 _OFFSET_RE = re.compile(
     rf"(?P<num>\d+|[a-z]+(?:-[a-z]+)?)\s+(?P<unit>{_UNIT_RE})",
@@ -57,7 +86,9 @@ def parse(s: str, today: date | None = None) -> date:
 
 
 def _normalize(s: str) -> str:
-    return re.sub(r"\s+", " ", s.strip().lower().replace(",", "")).replace(" from now", "")
+    return re.sub(r"\s+", " ", s.strip().lower().replace(",", "")).replace(
+        " from now", ""
+    )
 
 
 def _parse_expr(text: str, today: date) -> date:
