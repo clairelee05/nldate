@@ -83,7 +83,8 @@ def parse(s: str, today: date | None = None) -> date:
     if not text:
         raise ParseError("date expression is empty")
     return _parse_expr(text, ref)
-    
+
+
 def _normalize(s: str) -> str:
     return re.sub(r"\s+", " ", s.strip().lower().replace(",", ""))
 
@@ -95,6 +96,10 @@ def _parse_expr(text: str, today: date) -> date:
         return today + timedelta(days=1)
     if text == "yesterday":
         return today - timedelta(days=1)
+    if text == "the day after tomorrow":
+        return today + timedelta(days=2)
+    if text == "the day before yesterday":
+        return today - timedelta(days=2)
 
     weekday = _parse_weekday_expr(text, today)
     if weekday is not None:
