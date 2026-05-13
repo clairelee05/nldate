@@ -148,7 +148,11 @@ def _parse_standalone_relative(text: str, today: date) -> date | None:
         return _apply_offset(today, _parse_offset(match.group(1)))
     if match := re.fullmatch(r"(.+) before today", text):
         return _apply_offset(today, _parse_offset(match.group(1)).signed(-1))
-    return None
+
+    try:
+        return _apply_offset(today, _parse_offset(text))
+    except ParseError:
+        return None
 
 
 def _parse_anchored_offset(text: str, today: date) -> date | None:
