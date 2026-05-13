@@ -83,12 +83,9 @@ def parse(s: str, today: date | None = None) -> date:
     if not text:
         raise ParseError("date expression is empty")
     return _parse_expr(text, ref)
-
-
+    
 def _normalize(s: str) -> str:
-    return re.sub(r"\s+", " ", s.strip().lower().replace(",", "")).replace(
-        " from now", ""
-    )
+    return re.sub(r"\s+", " ", s.strip().lower().replace(",", ""))
 
 
 def _parse_expr(text: str, today: date) -> date:
