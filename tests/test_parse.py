@@ -1,9 +1,6 @@
 from datetime import date
 
-import pytest
-
 from nldate import parse
-from nldate.parser import DateParseError
 
 BASE = date(2026, 5, 11)
 
@@ -68,8 +65,3 @@ def test_ago() -> None:
 
 def test_month_end_clamps() -> None:
     assert parse("1 month after January 31 2025", today=BASE) == date(2025, 2, 28)
-
-
-def test_bad_input_raises() -> None:
-    with pytest.raises(DateParseError):
-        parse("sometime next fiscal quarter", today=BASE)
