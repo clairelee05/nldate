@@ -55,7 +55,7 @@ _OFFSET_RE = re.compile(
 )
 _DATE_NUMERIC_RE = re.compile(r"^(?P<m>\d{1,2})/(?P<d>\d{1,2})(?:/(?P<y>\d{2,4}))?$")
 _DATE_ISO_RE = re.compile(r"^(?P<y>\d{4})[-/](?P<m>\d{1,2})[-/](?P<d>\d{1,2})$")
- _MONTH_DATE_RE = re.compile(
+_MONTH_DATE_RE = re.compile(
 -    r"^(?P<month>[a-z]+)\s+(?P<day>\d{1,2})(?:st|nd|rd|th)?(?:,?\s+(?P<year>\d{4}))?$",
 +    r"^(?P<month>[a-z]+)\.?\s+(?P<day>\d{1,2})(?:st|nd|rd|th)?(?:,?\s+(?P<year>\d{4}))?$",
      re.IGNORECASE,
