@@ -81,8 +81,11 @@ def parse(s: str, today: date | None = None) -> date:
     ref = today or date.today()
     text = _normalize(s)
     if not text:
-        raise ParseError("date expression is empty")
-    return _parse_expr(text, ref)
+        raise ValueError("date expression is empty")
+    try:
+        return _parse_expr(text, ref)
+    except ParseError as exc:
+        raise ValueError(str(exc)) from exc
 
 
 def _normalize(s: str) -> str:
